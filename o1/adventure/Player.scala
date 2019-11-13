@@ -1,7 +1,11 @@
 package o1.adventure
 
 import scala.collection.mutable.Map
+import scala.util.Random
 
+object Player {
+  val foods: Vector[String] = Vector[String]("varenyky", "bublyk", "Chicken Kiev", "vushka", "kovbasa", "salo", "goulash", "kompot")
+}
 
 /** A `Player` object represents a player character controlled by the real-life user of the program.
   *
@@ -13,6 +17,10 @@ class Player(startingArea: Area) {
   private var currentLocation = startingArea        // gatherer: changes in relation to the previous location
   private var quitCommandGiven = false              // one-way flag
   private val items: Map[String, Item] = Map[String, Item]()
+  private val rand: Random = new Random() // random generator
+  
+  private var _rep: Double = 0.0 // the player's reputation
+  private var _hunger: Int = 0 // hunger level
 
 
   /** Determines if the player has indicated a desire to quit the game. */
@@ -38,7 +46,16 @@ class Player(startingArea: Area) {
   def rest() = {
     "You rest for a while. Better get a move on, though."
   }
-
+  
+  /** Causes the player to eat something, restoring their hunger level to zero.
+   *  Returns the food they ate. */
+  def eat(): String = {
+    _hunger = 0
+    "You have some " + Player.foods(rand.nextInt(Player.foods.length)) + " and feel satiated."
+  }
+  
+  /** Returns the player's hunger level as an integer on the half-open interval [0,∞[. Zero means the player is sated. */
+  def hunger: Int = _hunger
 
   /** Signals that the player wants to quit the game. Returns a description of what happened within
     * the game as a result (which is the empty string, in this case). */
@@ -46,6 +63,26 @@ class Player(startingArea: Area) {
     this.quitCommandGiven = true
     ""
   }
+  
+  /** Causes the player to hold a speech. This may or may not change the player's reputation. */
+  def holdSpeech(): String = {
+    val dRep: Double = rand.nextGaussian()
+    _rep = _rep + dRep // changes the reputation
+    if (dRep < -1.0) {
+      "Your speech instilled a deep fear and hatred in the population, proving a strong setback for your campaign."
+    } else if (dRep < -0.5) {
+      "Your speech was a bit too negative to the people. While a minor setback, you've learned to be a bit more gentle next time."
+    } else if (dRep < 0.5) {
+      "The people listened to your speech and largely agree with you, although some were more than apathetic. You keep going forward."
+    } else if (dRep < 1.0) {
+      "The impending uprising motivated you during your speech and you gave a fluid and resounding performance. With your hopes up, you move ahead."
+    } else {
+      "Your speech resonated more than powerfully with the people. They wholeheartedly agree with you and swear to support you."
+    }
+  }
+  
+  /** Returns the player's reputation. The bigger the reputation, the better a reputation the player has. */
+  def reputation: Double = _rep
   
   // Item methods
   private def doOrElse(item: Option[Item])(defined: Item => String, empty: () => String): String = {
