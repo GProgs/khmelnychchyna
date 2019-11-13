@@ -125,8 +125,8 @@ class Player(startingArea: Area) {
   
   /** Returns a brief description of the player's state, for debugging purposes. */
   override def toString = "Now at: " + this.location.name
-
-
+  
+  def self: String = s"Name: Bohdan Zynoviy Mykhailovych Khmelnytsky\nHunger: $hunger\nReputation: $reputation"
 }
 
 

@@ -22,10 +22,11 @@ class Action(input: String) {
     case "speech"    => Some(actor holdSpeech())
     case "examine"   => Some(actor examine this.modifiers)
     case "inventory" => Some(actor inventory)
+    case "self"      => Some(actor self)
     case "drop"      => Some(actor drop this.modifiers )
     case "rest"      => Some(actor rest())
     case "eat"       => Some(actor eat())
-    case "xyzzy"     => Some("The grue tastes yummy.")
+    case "xyzzy"     => Some("I'm Bohdan Khmelnytsky, I don't have time for this.")
     case "quit"      => Some(actor quit())
     case other       => None
   }
