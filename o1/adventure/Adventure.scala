@@ -12,29 +12,61 @@ package o1.adventure
 class Adventure {
 
   /** The title of the adventure game. */
-  val title = "A Forest Adventure"
+  val title = ???
 
-  private val middle      = new Area("Forest", "You are somewhere in the forest. There are a lot of trees here.\nBirds are singing.")
-  private val northForest = new Area("Forest", "You are somewhere in the forest. A tangle of bushes blocks further passage north.\nBirds are singing.")
-  private val southForest = new Area("Forest", "The forest just goes on and on.")
-  private val clearing    = new Area("Forest Clearing", "You are at a small clearing in the middle of forest.\nNearly invisible, twisted paths lead in many directions.")
-  private val tangle      = new Area("Tangle of Bushes", "You are in a dense tangle of bushes. It's hard to see exactly where you're going.")
-  private val home        = new Area("Home", "Home sweet home! Now the only thing you need is a working remote control.")
-  private val destination = home
+  private val Oster        = new Area("Oster", "")
+  private val Kyiv         = new Area("Kyiv", "")
+  private val Chernihiv    = new Area("Chernihiv", "")
+  private val Zhytomyr     = new Area("Zhytomyr", "")
+  private val Ovruch       = new Area("Ovruch", "")
+  private val Zvenyhorod   = new Area("Zvenyhorod", "")
+  private val Vinnytsia    = new Area("Vinnytsia", "")
+  private val Bratslav     = new Area("Bratslav", "")
+  private val Letychiv     = new Area("Letychiv", "")
+  private val Kamianets    = new Area("Kamianets", "")
+  private val Chervonohrad = new Area("Chervonohrad", "")
+  private val Lutsk        = new Area("Lutsk", "")
+  private val Volodymyr    = new Area("Volodymyr", "")
+  private val Busk         = new Area("Busk", "")
+  private val Belz         = new Area("Belz", "")
+  private val Halych       = new Area("Halych", "")
+  private val Lviv         = new Area("Lviv", "")
+  private val Zhydachiv    = new Area("Zhydachiv", "")
+  private val Stryi        = new Area("Stryi", "")
+  private val Sambir       = new Area("Sambir", "")
+  private val Kolomyia     = new Area("Kolomyia", "")
+  private val Drohobych    = new Area("Drohobych", "")
+  private val destination = ???
 
-       middle.setNeighbors(Vector("north" -> northForest, "east" -> tangle, "south" -> southForest, "west" -> clearing   ))
-  northForest.setNeighbors(Vector(                        "east" -> tangle, "south" -> middle,      "west" -> clearing   ))
-  southForest.setNeighbors(Vector("north" -> middle,      "east" -> tangle, "south" -> southForest, "west" -> clearing   ))
-     clearing.setNeighbors(Vector("north" -> northForest, "east" -> middle, "south" -> southForest, "west" -> northForest))
-       tangle.setNeighbors(Vector("north" -> northForest, "east" -> home,   "south" -> southForest, "west" -> northForest))
-         home.setNeighbors(Vector(                                                                  "west" -> tangle     ))
+         Oster.setNeighbors(Vector("north" -> Chernihiv,     "west" -> Kyiv))
+          Kyiv.setNeighbors(Vector("northeast" -> Chernihiv, "east" -> Oster,             "southwest" -> Zvenyhorod, "west" -> Zhytomyr))
+     Chernihiv.setNeighbors(Vector("south" -> Oster,         "southwest" -> Kyiv))
+      Zhytomyr.setNeighbors(Vector("north" -> Ovruch,        "east" -> Kyiv,              "south" -> Zvenyhorod,     "southwest" -> Vinnytsia, "west" -> Kremenets, "northwest" -> Lutsk))
+        Ovruch.setNeighbors(Vector("south" -> Zhytomyr,      "southwest" -> Lutsk))
+    Zvenyhorod.setNeighbors(Vector("north" -> Zhytomyr,      "northeast" -> Kyiv,         "southwest" -> Bratslav,   "west" -> Vinnytsia))
+     Vinnytsia.setNeighbors(Vector("northeast" -> Zhytomyr,  "east" -> Zvenyhorod,        "south" -> Bratslav,       "southwest" -> Letychiv,  "northwest" -> Kremenets))
+      Bratslav.setNeighbors(Vector("north" -> Vinnytsia,     "northeast" -> Zvenyhorod,   "northwest" -> Letychiv))
+      Letychiv.setNeighbors(Vector("north" -> Kremenets,     "northeast" -> Vinnytsia,    "southeast" -> Bratslav,   "west" -> Kamianets))
+     Kamianets.setNeighbors(Vector("northeast" -> Kremenets, "east" -> Letychiv,          "west" -> Chervonohrad))
+  Chervonohrad.setNeighbors(Vector("east" -> Kamianets,      "southwest" -> Kolomyia,     "west" -> Halych))
+         Lutsk.setNeighbors(Vector("northeast" -> Ovruch,    "southeast" -> Zhytomyr,     "south" -> Kremenets,      "southwest" -> Volodymyr))
+     Volodymyr.setNeighbors(Vector("northeast" -> Lutsk,     "southeast" -> Kremenets,    "south" -> Busk,           "southwest" -> Belz))
+          Busk.setNeighbors(Vector("north" -> Volodymyr,     "south" -> Halych,           "southwest" -> Lviv,       "west" -> Belz))
+          Belz.setNeighbors(Vector("northeast" -> Volodymyr, "east" -> Busk,              "south" -> Lviv))
+        Halych.setNeighbors(Vector("north" -> Busk,          "east" -> Chervonohrad,      "south" -> Kolomyia,       "southwest" -> Zhydachiv, "west" -> Lviv))
+          Lviv.setNeighbors(Vector("north" -> Belz,          "northeast" -> Busk,         "east" -> Halych,          "southeast" -> Zhydachiv, "south" -> Stryi, "southwest" -> Sambir))
+     Zhydachiv.setNeighbors(Vector("northeast" -> Halych,    "southeast" -> Kolomyia,     "southwest" -> Drohobych,  "west" -> Stryi,          "northwest" -> Lviv))
+         Stryi.setNeighbors(Vector("north" -> Lviv,          "east" -> Zhydachiv,         "south" -> Drohobych,      "west" -> Sambir))
+        Sambir.setNeighbors(Vector("northeast" -> Lviv,      "east" -> Stryi,             "southeast" -> Drohobych))
+      Kolomyia.setNeighbors(Vector("north" -> Halych,        "northeast" -> Chervonohrad, "west" -> Drohobych,       "northwest" -> Zhydachiv))
+     Drohobych.setNeighbors(Vector("north" -> Stryi,         "northeast" -> Zhydachiv,    "east" -> Kolomyia,        "northwest" -> Sambir))
 
-  // TODO: place these two items in clearing and southForest, respectively
+  // place these two items in clearing and southForest, respectively
   clearing addItem new Item("battery", "It's a small battery cell. Looks new.")
   southForest addItem new Item("remote", "It's the remote control for your TV.\nWhat it was doing in the forest, you have no idea.\nProblem is, there's no battery.")
 
   /** The character that the player controls in the game. */
-  val player = new Player(middle)
+  val player = new Player(???)
 
   /** The number of turns that have passed since the start of the game. */
   var turnCount = 0
