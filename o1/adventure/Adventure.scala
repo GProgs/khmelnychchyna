@@ -12,10 +12,13 @@ package o1.adventure
 class Adventure {
 
   /** The title of the adventure game. */
-  val title = ???
+  val title = "Khmelnychchyna"
 
   private val Oster        = new Area("Oster", "")
+  private val cChyhyryn    = new Area("City of Chyhyryn", "")
+  private val cNikopol     = new Area("City of Nikopol", "")
   private val Kyiv         = new Area("Kyiv", "")
+  private val cKyiv        = new Area("City of Kyiv", "")
   private val Chernihiv    = new Area("Chernihiv", "")
   private val Zhytomyr     = new Area("Zhytomyr", "")
   private val Ovruch       = new Area("Ovruch", "")
@@ -36,10 +39,14 @@ class Adventure {
   private val Sambir       = new Area("Sambir", "")
   private val Kolomyia     = new Area("Kolomyia", "")
   private val Drohobych    = new Area("Drohobych", "")
-  private val destination = ???
+  private val Kremenets    = new Area("Kremenets", "")
+  private val destination = cNikopol
 
-         Oster.setNeighbors(Vector("north" -> Chernihiv,     "west" -> Kyiv))
-          Kyiv.setNeighbors(Vector("northeast" -> Chernihiv, "east" -> Oster,             "southwest" -> Zvenyhorod, "west" -> Zhytomyr))
+         Oster.setNeighbors(Vector("north" -> Chernihiv,     "west" -> Kyiv,              "southeast" -> cNikopol,   "inside" -> cChyhyryn))
+     cChyhyryn.setNeighbors(Vector("around" -> Oster))
+      cNikopol.setNeighbors(Vector("northwest" -> Oster))
+          Kyiv.setNeighbors(Vector("northeast" -> Chernihiv, "east" -> Oster,             "southwest" -> Zvenyhorod, "west" -> Zhytomyr,       "inside" -> cKyiv))
+         cKyiv.setNeighbors(Vector("around" -> Kyiv))
      Chernihiv.setNeighbors(Vector("south" -> Oster,         "southwest" -> Kyiv))
       Zhytomyr.setNeighbors(Vector("north" -> Ovruch,        "east" -> Kyiv,              "south" -> Zvenyhorod,     "southwest" -> Vinnytsia, "west" -> Kremenets, "northwest" -> Lutsk))
         Ovruch.setNeighbors(Vector("south" -> Zhytomyr,      "southwest" -> Lutsk))
@@ -60,18 +67,19 @@ class Adventure {
         Sambir.setNeighbors(Vector("northeast" -> Lviv,      "east" -> Stryi,             "southeast" -> Drohobych))
       Kolomyia.setNeighbors(Vector("north" -> Halych,        "northeast" -> Chervonohrad, "west" -> Drohobych,       "northwest" -> Zhydachiv))
      Drohobych.setNeighbors(Vector("north" -> Stryi,         "northeast" -> Zhydachiv,    "east" -> Kolomyia,        "northwest" -> Sambir))
+     Kremenets.setNeighbors(Vector("north" -> Lutsk,         "east" -> Zhytomyr,          "southeast" -> Vinnytsia,  "south" -> Letychiv,     "southwest" -> Kamianets))
 
-  // place these two items in clearing and southForest, respectively
-  clearing addItem new Item("battery", "It's a small battery cell. Looks new.")
-  southForest addItem new Item("remote", "It's the remote control for your TV.\nWhat it was doing in the forest, you have no idea.\nProblem is, there's no battery.")
+  // items
+  Kyiv addItem new Item("map", "A map of the Zaporozhian Sich. It is a bit worn out, but not too much.")
+  Vinnytsia addItem new Item("sword", "A sword in excellent condition. It's only been used for practice.")
 
   /** The character that the player controls in the game. */
-  val player = new Player(???)
+  val player = new Player(Oster)
 
   /** The number of turns that have passed since the start of the game. */
   var turnCount = 0
   /** The maximum number of turns that this adventure game allows before time runs out. */
-  val timeLimit = 40
+  val timeLimit = 40 // TODO: Set the time in order to have the true time!
 
 
   /** Determines if the adventure is complete, that is, if the player has won. */
