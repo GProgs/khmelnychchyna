@@ -36,8 +36,10 @@ class Player(startingArea: Area) {
     * a description of the result: "You go DIRECTION." or "You can't go DIRECTION." */
   def go(direction: String) = {
     val destination = this.location.neighbor(direction)
-    this.currentLocation = destination.getOrElse(this.currentLocation)
-    if (destination.isDefined) { _hunger = _hunger + 1; "You go " + direction + "." } else "You can't go " + direction + "."
+    if (_hunger == 5) "You're too hungry to continue. Feeling exhausted, you take a break." else {
+      this.currentLocation = destination.getOrElse(this.currentLocation)
+      if (destination.isDefined) { _hunger = _hunger + 1; "You go " + direction + "." } else "You can't go " + direction + "."
+    }
   }
 
 

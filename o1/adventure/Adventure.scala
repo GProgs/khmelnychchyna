@@ -72,7 +72,7 @@ class Adventure {
      Kremenets.setNeighbors(Vector("north" -> Lutsk,         "east" -> Zhytomyr,          "southeast" -> Vinnytsia,  "south" -> Letychiv,     "southwest" -> Kamianets))
 
   // items
-  Kyiv addItem new Item("map", "A map of the Zaporozhian Sich. It is a bit worn out, but not too much.")
+  cKyiv addItem new Item("map", "A map of the Zaporozhian Sich. It is a bit worn out, but not too much.")
   Vinnytsia addItem new Item("sword", "A sword in excellent condition. It's only been used for practice.")
 
   /** The character that the player controls in the game. */
