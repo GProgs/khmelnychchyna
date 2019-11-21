@@ -1,5 +1,7 @@
 package o1.adventure
 
+import java.text.SimpleDateFormat
+import java.util.{Calendar, GregorianCalendar}
 
 /** The class `Adventure` represents text adventure games. An adventure consists of a player and
   * a number of areas that make up the game world. It provides methods for playing the game one
@@ -79,8 +81,9 @@ class Adventure {
   /** The number of turns that have passed since the start of the game. */
   var turnCount = 0
   /** The maximum number of turns that this adventure game allows before time runs out. */
-  val timeLimit = 40 // TODO: Set the time in order to have the true time!
-
+  val timeLimit = 170 // beginning: 01.11.1647 6AM; end: 25.01.1648 6AM
+  val calendar: GregorianCalendar = new GregorianCalendar(1647, 10, 1, 6, 0) // calendar
+  val format: SimpleDateFormat = new SimpleDateFormat("dd.MM.yyyy 'at' HH aaa")
 
   /** Determines if the adventure is complete, that is, if the player has won. */
   def isComplete = (this.player.location == this.destination) && player.has("battery") && player.has("remote")
@@ -112,10 +115,12 @@ class Adventure {
     val outcomeReport = action.execute(this.player)
     if (outcomeReport.isDefined) {
       this.turnCount += 1
+      calendar.add(Calendar.HOUR_OF_DAY, 12)
     }
     outcomeReport.getOrElse("Unknown command: \"" + command + "\".")
   }
-
+  
+  def time: String = format.format(calendar.getTime)
 
 }
 
