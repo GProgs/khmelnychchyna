@@ -4,13 +4,7 @@ import java.text.SimpleDateFormat
 import java.util.{Calendar, GregorianCalendar}
 
 /** The class `Adventure` represents text adventure games. An adventure consists of a player and
-  * a number of areas that make up the game world. It provides methods for playing the game one
-  * turn at a time and for checking the state of the game.
-  *
-  * N.B. This version of the class has a lot of "hard-coded" information which pertain to a very
-  * specific adventure game that involves a small trip through a twisted forest. All newly created
-  * instances of class `Adventure` are identical to each other. To create other kinds of adventure
-  * games, you will need to modify or replace the source code of this class. */
+  * a number of areas that make up the game world.*/
 class Adventure {
 
   /** The title of the adventure game. */
@@ -86,13 +80,13 @@ class Adventure {
   val format: SimpleDateFormat = new SimpleDateFormat("dd.MM.yyyy 'at' HH aaa")
 
   /** Determines if the adventure is complete, that is, if the player has won. */
-  def isComplete = (this.player.location == this.destination) && player.has("battery") && player.has("remote")
+  def isComplete = (this.player.location == this.destination) && player.has("sword")
 
   /** Determines whether the player has won, lost, or quit, thereby ending the game. */
-  def isOver = this.isComplete || this.player.hasQuit || this.turnCount == this.timeLimit
+  def isOver = this.isComplete || this.player.hasQuit || this.turnCount == this.timeLimit || this.player.isStarved
 
   /** Returns a message that is to be displayed to the player at the beginning of the game. */
-  def welcomeMessage = "You are lost in the woods. Find your way back home.\n\nBetter hurry, 'cause Scalatut elämät is on real soon now. And you can't miss Scalkkarit, right?"
+  def welcomeMessage = "A game about the Khmelnytsky Uprising.\n\nThe player, who is Bohdan Khmelnytsky,\nmust amass enough allies to successfully begin the uprising by 25 January 1648."
 
 
   /** Returns a message that is to be displayed to the player at the end of the game. The message
@@ -102,6 +96,8 @@ class Adventure {
       "Home at last... and phew, just in time! Well done!"
     else if (this.turnCount == this.timeLimit)
       "Oh no! Time's up. Starved of entertainment, you collapse and weep like a child.\nGame over!"
+   else if (this.player.isStarved)
+      "You have starved. Should have eaten while you had the chance..."
     else  // game over due to player quitting
       "Quitter!"
   }
@@ -113,7 +109,7 @@ class Adventure {
   def playTurn(command: String) = {
     val action = new Action(command)
     val outcomeReport = action.execute(this.player)
-    if (outcomeReport.isDefined) {
+    if (outcomeReport.isDefined && outcomeReport!= Some(this.player help)) {
       this.turnCount += 1
       calendar.add(Calendar.HOUR_OF_DAY, 12)
     }
