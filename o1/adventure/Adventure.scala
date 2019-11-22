@@ -80,7 +80,7 @@ class Adventure {
   val format: SimpleDateFormat = new SimpleDateFormat("dd.MM.yyyy 'at' HH aaa")
 
   /** Determines if the adventure is complete, that is, if the player has won. */
-  def isComplete = (this.player.location == this.destination) && player.has("sword")
+  def isComplete = (this.player.location == this.destination) && player.has("sword") && player.has("map")
 
   /** Determines whether the player has won, lost, or quit, thereby ending the game. */
   def isOver = this.isComplete || this.player.hasQuit || this.turnCount == this.timeLimit || this.player.isStarved
