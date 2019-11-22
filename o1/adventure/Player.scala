@@ -58,12 +58,20 @@ class Player(startingArea: Area) {
   
   /** Returns the player's hunger level as an integer on the half-open interval [0,∞[. Zero means the player is sated. */
   def hunger: Int = _hunger
+  
+  /** If the player's hunger is too great, the player will starve. */
+  def isStarved: Boolean = _hunger >= 10
 
   /** Signals that the player wants to quit the game. Returns a description of what happened within
     * the game as a result (which is the empty string, in this case). */
   def quit() = {
     this.quitCommandGiven = true
     ""
+  }
+  
+  /** Gives a list of new commands and what the player has to in order to win. */
+  def help() = {
+    "New commands:\n- speech\n- self\n- eat (remember to eat!)\n- rest"
   }
   
   /** Causes the player to hold a speech. This may or may not change the player's reputation. */
