@@ -109,7 +109,7 @@ class Adventure {
   def playTurn(command: String) = {
     val action = new Action(command)
     val outcomeReport = action.execute(this.player)
-    if (outcomeReport.isDefined && outcomeReport!= Some(this.player help)) {
+    if (outcomeReport.isDefined && outcomeReport!= Some(this.player help) && outcomeReport != Some(this.player self)) {
       this.turnCount += 1
       calendar.add(Calendar.HOUR_OF_DAY, 12)
     }
