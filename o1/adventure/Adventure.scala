@@ -77,10 +77,10 @@ class Adventure {
   /** The maximum number of turns that this adventure game allows before time runs out. */
   val timeLimit = 170 // beginning: 01.11.1647 6AM; end: 25.01.1648 6AM
   val calendar: GregorianCalendar = new GregorianCalendar(1647, 10, 1, 6, 0) // calendar
-  val format: SimpleDateFormat = new SimpleDateFormat("dd.MM.yyyy 'at' HH aaa")
+  val format: SimpleDateFormat = new SimpleDateFormat("dd.MM.yyyy 'at' HH:mm")
 
   /** Determines if the adventure is complete, that is, if the player has won. */
-  def isComplete = (this.player.location == this.destination) && player.has("sword") && player.has("map")
+  def isComplete = (this.player.location == this.destination) && (turnCount == timeLimit) && player.has("sword") && player.has("map")
 
   /** Determines whether the player has won, lost, or quit, thereby ending the game. */
   def isOver = this.isComplete || this.player.hasQuit || this.turnCount == this.timeLimit || this.player.isStarved
@@ -93,9 +93,9 @@ class Adventure {
     * will be different depending on whether or not the player has completed their quest. */
   def goodbyeMessage = {
     if (this.isComplete)
-      "Home at last... and phew, just in time! Well done!"
+      "With enough supporters all around Ukraine, you enter the Zaporozhian Sich and begin the uprising.\nAs a result, the Cossack Hetmanate is founded.\nYou won!"
     else if (this.turnCount == this.timeLimit)
-      "Oh no! Time's up. Starved of entertainment, you collapse and weep like a child.\nGame over!"
+      "Oh no! Time's up. You didn't manage to start the uprising.\nGame over!"
    else if (this.player.isStarved)
       "You have starved. Should have eaten while you had the chance..."
     else  // game over due to player quitting

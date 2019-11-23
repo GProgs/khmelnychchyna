@@ -38,16 +38,14 @@ class Player(startingArea: Area) {
     val destination = this.location.neighbor(direction)
     if (_hunger == 5) "You're too hungry to continue. Feeling exhausted, you take a break." else {
       this.currentLocation = destination.getOrElse(this.currentLocation)
-      if (destination.isDefined) { _hunger = _hunger + 1; "You go " + direction + "." } else "You can't go " + direction + "."
+      if (destination.isDefined) { incHunger(); "You go " + direction + "." } else "You can't go " + direction + "."
     }
   }
 
 
   /** Causes the player to rest for a short while (this has no substantial effect in game terms).
     * Returns a description of what happened. */
-  def rest() = {
-    "You rest for a while. Better get a move on, though."
-  }
+  def rest() = "You rest for a while. Better get a move on, though."
   
   /** Causes the player to eat something, restoring their hunger level to zero.
    *  Returns the food they ate. */
@@ -55,6 +53,8 @@ class Player(startingArea: Area) {
     _hunger = 0
     "You have some " + Player.foods(rand.nextInt(Player.foods.length)) + " and feel satiated."
   }
+  
+  def incHunger(): Unit = { _hunger = _hunger + 1 }
   
   /** Returns the player's hunger level as an integer on the half-open interval [0,∞[. Zero means the player is sated. */
   def hunger: Int = _hunger
@@ -78,6 +78,7 @@ class Player(startingArea: Area) {
   def holdSpeech(): String = {
     val dRep: Double = rand.nextGaussian()
     _rep = _rep + dRep // changes the reputation
+    incHunger()
     if (dRep < -1.0) {
       "Your speech instilled a deep fear and hatred in the population, proving a strong setback for your campaign."
     } else if (dRep < -0.5) {
