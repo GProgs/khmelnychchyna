@@ -10,32 +10,32 @@ class Adventure {
   /** The title of the adventure game. */
   val title = "Khmelnychchyna"
 
-  private val Oster        = new Area("Oster", "")
-  private val cChyhyryn    = new Area("City of Chyhyryn", "")
-  private val cNikopol     = new Area("City of Nikopol", "")
-  private val Kyiv         = new Area("Kyiv", "")
-  private val cKyiv        = new Area("City of Kyiv", "")
-  private val Chernihiv    = new Area("Chernihiv", "")
-  private val Zhytomyr     = new Area("Zhytomyr", "")
-  private val Ovruch       = new Area("Ovruch", "")
-  private val Zvenyhorod   = new Area("Zvenyhorod", "")
-  private val Vinnytsia    = new Area("Vinnytsia", "")
-  private val Bratslav     = new Area("Bratslav", "")
-  private val Letychiv     = new Area("Letychiv", "")
-  private val Kamianets    = new Area("Kamianets", "")
-  private val Chervonohrad = new Area("Chervonohrad", "")
-  private val Lutsk        = new Area("Lutsk", "")
-  private val Volodymyr    = new Area("Volodymyr", "")
-  private val Busk         = new Area("Busk", "")
-  private val Belz         = new Area("Belz", "")
-  private val Halych       = new Area("Halych", "")
-  private val Lviv         = new Area("Lviv", "")
-  private val Zhydachiv    = new Area("Zhydachiv", "")
-  private val Stryi        = new Area("Stryi", "")
-  private val Sambir       = new Area("Sambir", "")
-  private val Kolomyia     = new Area("Kolomyia", "")
-  private val Drohobych    = new Area("Drohobych", "")
-  private val Kremenets    = new Area("Kremenets", "")
+  private val Oster        = new Area("Oster", "", 6300)
+  private val cChyhyryn    = new Area("City of Chyhyryn", "", 980)
+  private val cNikopol     = new Area("City of Nikopol", "", 1230)
+  private val Kyiv         = new Area("Kyiv", "", 12000)
+  private val cKyiv        = new Area("City of Kyiv", "", 2355)
+  private val Chernihiv    = new Area("Chernihiv", "", 2200)
+  private val Zhytomyr     = new Area("Zhytomyr", "", 3300)
+  private val Ovruch       = new Area("Ovruch", "", 2100)
+  private val Zvenyhorod   = new Area("Zvenyhorod", "", 4200)
+  private val Vinnytsia    = new Area("Vinnytsia", "", 6300)
+  private val Bratslav     = new Area("Bratslav", "", 7800)
+  private val Letychiv     = new Area("Letychiv", "", 4300)
+  private val Kamianets    = new Area("Kamianets", "", 5500)
+  private val Chervonohrad = new Area("Chervonohrad", "", 2200)
+  private val Lutsk        = new Area("Lutsk", "", 4300)
+  private val Volodymyr    = new Area("Volodymyr", "", 3210)
+  private val Busk         = new Area("Busk", "", 1200)
+  private val Belz         = new Area("Belz", "", 3200)
+  private val Halych       = new Area("Halych", "", 2300)
+  private val Lviv         = new Area("Lviv", "", 8300)
+  private val Zhydachiv    = new Area("Zhydachiv", "", 1945)
+  private val Stryi        = new Area("Stryi", "", 1939)
+  private val Sambir       = new Area("Sambir", "", 1300)
+  private val Kolomyia     = new Area("Kolomyia", "", 2200)
+  private val Drohobych    = new Area("Drohobych", "", 2300)
+  private val Kremenets    = new Area("Kremenets", "", 5200)
   private val destination = cNikopol
 
          Oster.setNeighbors(Vector("north" -> Chernihiv,     "west" -> Kyiv,              "southeast" -> cNikopol,   "inside" -> cChyhyryn))
@@ -105,7 +105,7 @@ class Adventure {
 
   /** Plays a turn by executing the given in-game command, such as "go west". Returns a textual
     * report of what happened, or an error message if the command was unknown. In the latter
-    * case, no turns elapse. */
+    * case, no turns elapse. Turns don't elapse for the commands "help" and "self". */
   def playTurn(command: String) = {
     val action = new Action(command)
     val outcomeReport = action.execute(this.player)

@@ -1,6 +1,7 @@
 package o1.adventure
 
 import scala.collection.mutable.Map
+import scala.math.max
 
 /** The class `Area` represents locations in a text adventure game world. A game world
   * consists of areas. In general, an "area" can be pretty much anything: a room, a building,
@@ -9,10 +10,11 @@ import scala.collection.mutable.Map
   * other, neighboring areas. An area also has a name and a description.
   * @param name         the name of the area
   * @param description  a basic description of the area (typically not including information about items) */
-class Area(var name: String, var description: String) {
+class Area(var name: String, var description: String, private var _recruitablePopulation: Int) {
 
   private val neighbors = Map[String, Area]()
   private val items: Map[String, Item] = Map[String, Item]()
+  private var _talksGiven: Int = 0
 
   /** Returns the area that can be reached from this area by moving in the given direction. The result
     * is returned in an `Option`; `None` is returned if there is no exit in the given direction. */
@@ -52,6 +54,19 @@ class Area(var name: String, var description: String) {
   
   def contains(itemName: String): Boolean = items.contains(itemName)
   
+  // Population methods
+  def recruitablePopulation: Int = _recruitablePopulation
+  
+  /** Updates the population, given a coefficient. If the new population turns out negative, then just clip it at zero.
+   *  Returns the difference in population. */
+  def updatePopulation(d: Int): Int = {
+    val oldPop: Int = _recruitablePopulation
+    val newPop: Int = _recruitablePopulation + d
+    if (newPop < 0) { _recruitablePopulation = 0; oldPop } else { _recruitablePopulation = newPop; d }
+  }
+  
+  /** Indicates an attempt to give a talk. If successsful, return true; if not, return false. A player can give a talk if there have been four or less talks in this area. */
+  def talk(): Boolean = if (_talksGiven <= 4) {_talksGiven = _talksGiven + 1; true} else false
   
   /** Returns a single-line description of the area for debugging purposes. */
   override def toString = this.name + ": " + this.description.replaceAll("\n", " ").take(150)

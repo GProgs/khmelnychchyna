@@ -20,6 +20,7 @@ class Action(input: String) {
     case "go"        => Some(actor go this.modifiers)
     case "get"       => Some(actor get this.modifiers)
     case "speech"    => Some(actor holdSpeech())
+    case "talk"      => Some(actor talk())
     case "examine"   => Some(actor examine this.modifiers)
     case "inventory" => Some(actor inventory)
     case "self"      => Some(actor self)
@@ -28,7 +29,7 @@ class Action(input: String) {
     case "eat"       => Some(actor eat())
     case "xyzzy"     => Some("I'm Bohdan Khmelnytsky, I don't have time for this.")
     case "quit"      => Some(actor quit())
-    case "help"      => Some(actor help())
+    case "help"      => Some(actor help)
     case other       => None
   }
 

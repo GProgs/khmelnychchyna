@@ -2,6 +2,7 @@ package o1.adventure
 
 import scala.collection.mutable.Map
 import scala.util.Random
+import scala.math.{min, max}
 
 object Player {
   val foods: Vector[String] = Vector[String]("varenyky", "bublyk", "Chicken Kiev", "vushka", "kovbasa", "salo", "goulash", "kompot")
@@ -21,7 +22,7 @@ class Player(startingArea: Area) {
   
   private var _rep: Double = 0.0 // the player's reputation
   private var _hunger: Int = 0 // hunger level
-
+  private var _allies: Int = rand.nextInt(201) // amount of allies (randomly generated, ranging from zero to 200)
 
   /** Determines if the player has indicated a desire to quit the game. */
   def hasQuit = this.quitCommandGiven
@@ -36,7 +37,7 @@ class Player(startingArea: Area) {
     * a description of the result: "You go DIRECTION." or "You can't go DIRECTION." */
   def go(direction: String) = {
     val destination = this.location.neighbor(direction)
-    if (_hunger == 5) "You're too hungry to continue. Feeling exhausted, you take a break." else {
+    if (_hunger >= 5) "You're too hungry to continue. Feeling exhausted, you take a break." else {
       this.currentLocation = destination.getOrElse(this.currentLocation)
       if (destination.isDefined) { incHunger(); "You go " + direction + "." } else "You can't go " + direction + "."
     }
@@ -54,6 +55,7 @@ class Player(startingArea: Area) {
     "You have some " + Player.foods(rand.nextInt(Player.foods.length)) + " and feel satiated."
   }
   
+  /** Increments the player's hunger level by one. */
   def incHunger(): Unit = { _hunger = _hunger + 1 }
   
   /** Returns the player's hunger level as an integer on the half-open interval [0,∞[. Zero means the player is sated. */
@@ -70,9 +72,7 @@ class Player(startingArea: Area) {
   }
   
   /** Gives a list of new commands and what the player has to in order to win. */
-  def help() = {
-    "New commands:\n- speech\n- self\n- eat (remember to eat!)\n- rest"
-  }
+  def help: String = "New commands:\n- speech\n- talk\n- self\n- eat (remember to eat!)\n- rest"
   
   /** Causes the player to hold a speech. This may or may not change the player's reputation. */
   def holdSpeech(): String = {
@@ -92,8 +92,37 @@ class Player(startingArea: Area) {
     }
   }
   
+  /** Talks to people in order to get allies.
+   *  
+   */
+  def talk(): String = {
+    incHunger()
+    if (location.talk()) { // if you've given four talks or less in this area => the max is five talks
+      if (rand.nextInt(2) == 1) { // 1 means you lose allies
+        val oldAllies: Int = _allies
+        val d: Int = (coeff() * _allies).round.toInt // amount of allies you lose
+        val newAllies: Int = _allies - d // the new amount of allies
+        _allies = max(0, newAllies) // remove this amount of allies from the player
+        location.updatePopulation(d) // add the same amount of allies to the recruitable population
+        s"You lost ${oldAllies - newAllies} allies."
+      } else {
+        val d: Int = (coeff() * location.recruitablePopulation).round.toInt
+        val newAllies: Int = -location.updatePopulation(-d) // takes into account the case where the population is drained;
+        // the minus is to show that you GOT new allies
+        _allies = newAllies
+        s"You got $newAllies new allies."
+      }
+    } else { "You can't give a talk here anymore. Instead, you take a rest here." }
+  }
+  
+  /** Returns a random reputation-based constrained coefficient, outlined in the method talk(). This one is on the interval [0, 1]*/
+  private def coeff(): Double = max(0.0, min(_rep * rand.nextGaussian(), 1.0))
+  
   /** Returns the player's reputation. The bigger the reputation, the better a reputation the player has. */
   def reputation: Double = _rep
+  
+  /** Returns the amount of allies the player has. */
+  def allies: Int = _allies
   
   // Item methods
   private def doOrElse(item: Option[Item])(defined: Item => String, empty: () => String): String = {

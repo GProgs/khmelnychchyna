@@ -30,6 +30,7 @@ object AdventureTextUI extends App {
   private def printAreaInfo() = {
     val area = this.player.location
     println("\n\n" + area.name)
+    println(s"Recruitable population: ${area.recruitablePopulation}")
     println(this.game.time)
     println("-" * area.name.length)
     println(area.fullDescription + "\n")
