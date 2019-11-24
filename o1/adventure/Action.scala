@@ -29,6 +29,7 @@ class Action(input: String) {
     case "eat"       => Some(actor eat())
     case "xyzzy"     => Some("I'm Bohdan Khmelnytsky, I don't have time for this.")
     case "quit"      => Some(actor quit())
+    case "end"       => Some(actor end())
     case "help"      => Some(actor help)
     case other       => None
   }
