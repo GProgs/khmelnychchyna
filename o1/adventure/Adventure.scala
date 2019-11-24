@@ -80,7 +80,7 @@ class Adventure {
   val format: SimpleDateFormat = new SimpleDateFormat("dd.MM.yyyy 'at' HH:mm")
 
   /** Determines if the adventure is complete, that is, if the player has won. */
-  def isComplete = (this.player.location == this.destination) && (turnCount == timeLimit) && player.has("sword") && player.has("map")
+  def isComplete = (this.player.location == this.destination) && ((this.turnCount == this.timeLimit) || this.player.hasEnded) && this.player.has("sword") && this.player.has("map")
 
   /** Determines whether the player has won, lost, or quit, thereby ending the game. */
   def isOver = this.isComplete || this.player.hasQuit || this.turnCount == this.timeLimit || this.player.isStarved
@@ -97,7 +97,7 @@ class Adventure {
     else if (this.turnCount == this.timeLimit)
       "Oh no! Time's up. You didn't manage to start the uprising.\nGame over!"
    else if (this.player.isStarved)
-      "You have starved. Should have eaten while you had the chance..."
+      "You have starved. Should have eaten while you had the chance...\nGame over!"
     else  // game over due to player quitting
       "Quitter!"
   }
@@ -109,7 +109,7 @@ class Adventure {
   def playTurn(command: String) = {
     val action = new Action(command)
     val outcomeReport = action.execute(this.player)
-    if (outcomeReport.isDefined && outcomeReport!= Some(this.player help) && outcomeReport != Some(this.player self)) {
+    if (outcomeReport.isDefined && outcomeReport!= Some(this.player help) && outcomeReport != Some(this.player self) && outcomeReport != Some(this.player end)) {
       this.turnCount += 1
       calendar.add(Calendar.HOUR_OF_DAY, 12)
     }
