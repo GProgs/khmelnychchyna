@@ -10,7 +10,7 @@ import scala.math.max
   * other, neighboring areas. An area also has a name and a description.
   * @param name         the name of the area
   * @param description  a basic description of the area (typically not including information about items) */
-class Area(var name: String, var description: String, private var _recruitablePopulation: Int) {
+class Area(var name: String, private var _recruitablePopulation: Int) {
 
   private val neighbors = Map[String, Area]()
   private val items: Map[String, Item] = Map[String, Item]()
@@ -44,7 +44,7 @@ class Area(var name: String, var description: String, private var _recruitablePo
   def fullDescription = {
     val itemList = if (!items.isEmpty) "\nYou see here: " + items.keys.mkString(" ") else ""
     val exitList = "\n\nExits available: " + this.neighbors.keys.mkString(" ")
-    this.description + itemList + exitList
+    itemList + exitList
   }
   
   // Item methods
@@ -69,7 +69,7 @@ class Area(var name: String, var description: String, private var _recruitablePo
   def talk(): Boolean = if (_talksGiven <= 4) {_talksGiven = _talksGiven + 1; true} else false
   
   /** Returns a single-line description of the area for debugging purposes. */
-  override def toString = this.name + ": " + this.description.replaceAll("\n", " ").take(150)
+  override def toString = this.name
 
 
 
