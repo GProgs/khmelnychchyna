@@ -8,11 +8,10 @@ package o1.adventure
   * That is, no two items in a game world have the same name.
   *
   * @param name         the item's name
-  * @param description  the item's description */
-class Item(val name: String, val description: String) {
+  * @param description  the item's description
+  * @param use          what happens when you use the item */
+class Item(val name: String, val description: String, val use: String) {
 
   /** Returns a short textual representation of the item (its name, that is). */
   override def toString = this.name
-
-
 }

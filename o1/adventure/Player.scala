@@ -170,6 +170,12 @@ class Player(startingArea: Area) {
     doOrElse(items.get(itemName))(defined, empty)
   }
   
+  def use(itemName: String): String = {
+    val defined: Item => String = _.use
+    val empty: () => String = () => "If you want to use something, you need to pick it up first."
+    doOrElse(items.get(itemName))(defined, empty)
+  }
+  
   def inventory: String = {
     if (items.isEmpty) { "You are empty-handed." }
     else {

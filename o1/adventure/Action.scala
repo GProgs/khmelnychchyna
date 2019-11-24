@@ -22,6 +22,7 @@ class Action(input: String) {
     case "speech"    => Some(actor holdSpeech())
     case "talk"      => Some(actor talk())
     case "examine"   => Some(actor examine this.modifiers)
+    case "use"       => Some(actor use this.modifiers)
     case "inventory" => Some(actor inventory)
     case "self"      => Some(actor self)
     case "drop"      => Some(actor drop this.modifiers )
