@@ -38,13 +38,11 @@ class Area(var name: String, private var _recruitablePopulation: Int) {
 
 
   /** Returns a multi-line description of the area as a player sees it. This includes a basic
-    * description of the area as well as information about exits and items. The return
-    * value has the form "DESCRIPTION\n\nExits available: DIRECTIONS SEPARATED BY SPACES".
-    * The directions are listed in an arbitrary order. */
+    * description of the area as well as information about exits and items. */
   def fullDescription = {
     val itemList = if (!items.isEmpty) "\nYou see here: " + items.keys.mkString(" ") else ""
     val exitList = "\n\nExits available: " + this.neighbors.keys.mkString(" ")
-    itemList + exitList
+    s"$name\nRecruitable population: ${_recruitablePopulation}" + itemList + exitList
   }
   
   // Item methods

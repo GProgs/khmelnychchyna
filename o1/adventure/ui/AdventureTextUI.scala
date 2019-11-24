@@ -29,10 +29,7 @@ object AdventureTextUI extends App {
   /** Prints out a description of the player character's current location, as seen by the character. */
   private def printAreaInfo() = {
     val area = this.player.location
-    println("\n\n" + area.name)
-    println(s"Recruitable population: ${area.recruitablePopulation}")
-    println(this.game.time)
-    println("-" * area.name.length)
+    println(s"\n\n${this.game.time}\n")
     println(area.fullDescription + "\n")
   }
 
