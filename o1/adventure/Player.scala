@@ -74,7 +74,7 @@ class Player(startingArea: Area) {
   def help: String = {
     "New commands:\n- speech (You give a speech. Can change your reputation.)" + 
     "\n- talk (You can recruit or lose allies by talking)\n- self\n- eat (Remember to eat!)\n- rest\n- end (Can skip time.)" +
-    "\n\n In order to win, you must have the map and the sword, and be in the place specified by the map."
+    "\n\n In order to win, you must have the map, the sword, be in the place specified by the map, and have enough allies (25% of the population).."
   }
 
   /** Causes the player to hold a speech. This may or may not change the player's reputation. */
@@ -175,7 +175,7 @@ class Player(startingArea: Area) {
   /** Returns a brief description of the player's state, for debugging purposes. */
   override def toString = "Now at: " + this.location.name
   
-  def self: String = s"Name: Bohdan Zynoviy Mykhailovych Khmelnytsky\nHunger: $hunger\nReputation: $reputation\nAllies: $allies"
+  def self: String = s"Name: Bohdan Zynoviy Mykhailovych Khmelnytsky\nHunger: $hunger\nAllies: $allies"
 }
 
 
