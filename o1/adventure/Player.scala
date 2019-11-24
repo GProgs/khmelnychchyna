@@ -80,14 +80,14 @@ class Player(startingArea: Area) {
     if (this.location.name == "City of Nikopol" && this.has("map") && this.has("sword")) {
     this.endCommandGiven = true
     ""
-    } else "In order to skip time, you must be in the City of Nikopol and have the map and the sword."
+    } else "In order to skip time, you must have the map and the sword, and be in the place specified by the map."
   }
   
   /** Gives a list of new commands and what the player has to do in order to win. */
   def help: String = {
     "New commands:\n- speech (You give a speech. Can change your reputation.)" + 
     "\n- talk (You can recruit or lose allies by talking)\n- self\n- eat (Remember to eat!)\n- rest\n- end (Can skip time.)" +
-    "\n\n In order to win, you must have the map and the sword and you must go to the City of Nikopol."
+    "\n\n In order to win, you must have the map and the sword, and be in the place specified by the map."
   }
 
   /** Causes the player to hold a speech. This may or may not change the player's reputation. */
