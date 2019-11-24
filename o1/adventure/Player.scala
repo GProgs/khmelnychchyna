@@ -17,6 +17,7 @@ class Player(startingArea: Area) {
 
   private var currentLocation = startingArea        // gatherer: changes in relation to the previous location
   private var quitCommandGiven = false              // one-way flag
+  private var endCommandGiven = false
   private val items: Map[String, Item] = Map[String, Item]()
   private val rand: Random = new Random() // random generator
   
@@ -27,6 +28,8 @@ class Player(startingArea: Area) {
   /** Determines if the player has indicated a desire to quit the game. */
   def hasQuit = this.quitCommandGiven
 
+  /** Determines if the player has indicated a desire to skip to the end. */
+  def hasEnded = this.endCommandGiven
 
   /** Returns the current location of the player. */
   def location = this.currentLocation
@@ -71,9 +74,22 @@ class Player(startingArea: Area) {
     ""
   }
   
-  /** Gives a list of new commands and what the player has to in order to win. */
-  def help: String = "New commands:\n- speech\n- talk\n- self\n- eat (remember to eat!)\n- rest"
+  /** Signals that the player wants to skip to the end of the game. Only works when the player is
+   *  in the destination area and has items required for victory.*/
+  def end() = {
+    if (this.location.name == "City of Nikopol" && this.has("map") && this.has("sword")) {
+    this.endCommandGiven = true
+    ""
+    } else "In order to skip time, you must be in the City of Nikopol and have the map and the sword."
+  }
   
+  /** Gives a list of new commands and what the player has to do in order to win. */
+  def help: String = {
+    "New commands:\n- speech (You give a speech. Can change your reputation.)" + 
+    "\n- talk (You can recruit or lose allies by talking)\n- self\n- eat (Remember to eat!)\n- rest\n- end (Can skip time.)" +
+    "\n\n In order to win, you must have the map and the sword and you must go to the City of Nikopol."
+  }
+
   /** Causes the player to hold a speech. This may or may not change the player's reputation. */
   def holdSpeech(): String = {
     val dRep: Double = rand.nextGaussian()
@@ -166,7 +182,7 @@ class Player(startingArea: Area) {
   /** Returns a brief description of the player's state, for debugging purposes. */
   override def toString = "Now at: " + this.location.name
   
-  def self: String = s"Name: Bohdan Zynoviy Mykhailovych Khmelnytsky\nHunger: $hunger\nReputation: $reputation"
+  def self: String = s"Name: Bohdan Zynoviy Mykhailovych Khmelnytsky\nHunger: $hunger\nReputation: $reputation\nAllies: $allies"
 }
 
 
