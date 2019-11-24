@@ -10,32 +10,32 @@ class Adventure {
   /** The title of the adventure game. */
   val title = "Khmelnychchyna"
 
-  private val Oster        = new Area("Oster", "", 6300)
-  private val cChyhyryn    = new Area("City of Chyhyryn", "", 980)
-  private val cNikopol     = new Area("City of Nikopol", "", 1230)
-  private val Kyiv         = new Area("Kyiv", "", 12000)
-  private val cKyiv        = new Area("City of Kyiv", "", 2355)
-  private val Chernihiv    = new Area("Chernihiv", "", 2200)
-  private val Zhytomyr     = new Area("Zhytomyr", "", 3300)
-  private val Ovruch       = new Area("Ovruch", "", 2100)
-  private val Zvenyhorod   = new Area("Zvenyhorod, Bratslav Voivodeship", "", 4200)
-  private val Vinnytsia    = new Area("Vinnytsia, Bratslav Voivodeship", "", 6300)
-  private val Bratslav     = new Area("Bratslav, Bratslav Voivodeship", "", 7800)
-  private val Letychiv     = new Area("Letychiv", "", 4300)
-  private val Kamianets    = new Area("Kamianets", "", 5500)
-  private val Chervonohrad = new Area("Chervonohrad", "", 2200)
-  private val Lutsk        = new Area("Lutsk", "", 4300)
-  private val Volodymyr    = new Area("Volodymyr", "", 3210)
-  private val Busk         = new Area("Busk, Belz Voivodeship", "", 1200)
-  private val Belz         = new Area("Belz, Belz Voivodeship", "", 3200)
-  private val Halych       = new Area("Halych", "", 2300)
-  private val Lviv         = new Area("Lviv", "", 8300)
-  private val Zhydachiv    = new Area("Zhydachiv", "", 1945)
-  private val Stryi        = new Area("Stryi", "", 1939)
-  private val Sambir       = new Area("Sambir", "", 1300)
-  private val Kolomyia     = new Area("Kolomyia", "", 2200)
-  private val Drohobych    = new Area("Drohobych", "", 2300)
-  private val Kremenets    = new Area("Kremenets", "", 5200)
+  private val Oster        = new Area("Oster", 6300)
+  private val cChyhyryn    = new Area("City of Chyhyryn", 980)
+  private val cNikopol     = new Area("City of Nikopol", 1230)
+  private val Kyiv         = new Area("Kyiv", 12000)
+  private val cKyiv        = new Area("City of Kyiv", 2355)
+  private val Chernihiv    = new Area("Chernihiv", 2200)
+  private val Zhytomyr     = new Area("Zhytomyr", 3300)
+  private val Ovruch       = new Area("Ovruch", 2100)
+  private val Zvenyhorod   = new Area("Zvenyhorod", 4200)
+  private val Vinnytsia    = new Area("Vinnytsia", 6300)
+  private val Bratslav     = new Area("Bratslav", 7800)
+  private val Letychiv     = new Area("Letychiv", 4300)
+  private val Kamianets    = new Area("Kamianets", 5500)
+  private val Chervonohrad = new Area("Chervonohrad", 2200)
+  private val Lutsk        = new Area("Lutsk", 4300)
+  private val Volodymyr    = new Area("Volodymyr", 3210)
+  private val Busk         = new Area("Busk", 1200)
+  private val Belz         = new Area("Belz", 3200)
+  private val Halych       = new Area("Halych", 2300)
+  private val Lviv         = new Area("Lviv", 8300)
+  private val Zhydachiv    = new Area("Zhydachiv", 1945)
+  private val Stryi        = new Area("Stryi", 1939)
+  private val Sambir       = new Area("Sambir", 1300)
+  private val Kolomyia     = new Area("Kolomyia", 2200)
+  private val Drohobych    = new Area("Drohobych", 2300)
+  private val Kremenets    = new Area("Kremenets", 5200)
   private val destination = cNikopol
 
          Oster.setNeighbors(Vector("north" -> Chernihiv,     "west" -> Kyiv,              "southeast" -> cNikopol,   "inside" -> cChyhyryn))
@@ -80,7 +80,7 @@ class Adventure {
   val format: SimpleDateFormat = new SimpleDateFormat("dd.MM.yyyy 'at' HH:mm")
 
   /** Determines if the adventure is complete, that is, if the player has won. */
-  def isComplete = (this.player.location == this.destination) && (turnCount == timeLimit) && player.has("sword") && player.has("map")
+  def isComplete = (this.player.location == this.destination) && ((this.turnCount == this.timeLimit) || this.player.hasEnded) && this.player.has("sword") && this.player.has("map")
 
   /** Determines whether the player has won, lost, or quit, thereby ending the game. */
   def isOver = this.isComplete || this.player.hasQuit || this.turnCount == this.timeLimit || this.player.isStarved
@@ -97,7 +97,7 @@ class Adventure {
     else if (this.turnCount == this.timeLimit)
       "Oh no! Time's up. You didn't manage to start the uprising.\nGame over!"
    else if (this.player.isStarved)
-      "You have starved. Should have eaten while you had the chance..."
+      "You have starved. Should have eaten while you had the chance...\nGame over!"
     else  // game over due to player quitting
       "Quitter!"
   }
@@ -109,7 +109,7 @@ class Adventure {
   def playTurn(command: String) = {
     val action = new Action(command)
     val outcomeReport = action.execute(this.player)
-    if (outcomeReport.isDefined && outcomeReport!= Some(this.player help) && outcomeReport != Some(this.player self)) {
+    if (outcomeReport.isDefined && outcomeReport!= Some(this.player help) && outcomeReport != Some(this.player self) && outcomeReport != Some(this.player end)) {
       this.turnCount += 1
       calendar.add(Calendar.HOUR_OF_DAY, 12)
     }
