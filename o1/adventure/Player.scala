@@ -17,7 +17,6 @@ class Player(startingArea: Area) {
 
   private var currentLocation = startingArea        // gatherer: changes in relation to the previous location
   private var quitCommandGiven = false              // one-way flag
-  private var endCommandGiven = false
   private val items: Map[String, Item] = Map[String, Item]()
   private val rand: Random = new Random() // random generator
   
@@ -27,9 +26,6 @@ class Player(startingArea: Area) {
 
   /** Determines if the player has indicated a desire to quit the game. */
   def hasQuit = this.quitCommandGiven
-
-  /** Determines if the player has indicated a desire to skip to the end. */
-  def hasEnded = this.endCommandGiven
 
   /** Returns the current location of the player. */
   def location = this.currentLocation
@@ -72,15 +68,6 @@ class Player(startingArea: Area) {
   def quit() = {
     this.quitCommandGiven = true
     ""
-  }
-  
-  /** Signals that the player wants to skip to the end of the game. Only works when the player is
-   *  in the destination area and has items required for victory.*/
-  def end() = {
-    if (this.location.name == "City of Nikopol" && this.has("map") && this.has("sword")) {
-    this.endCommandGiven = true
-    ""
-    } else "In order to skip time, you must have the map and the sword, and be in the place specified by the map."
   }
   
   /** Gives a list of new commands and what the player has to do in order to win. */
