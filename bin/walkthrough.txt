@@ -1,0 +1,50 @@
+Khmelnychchyna (Хмельниччина) - Walkthrough
+
+In order to win the game, you need to
+1. have a map of the Zaporozhian Sich with you (can be found in the City of Kyiv)
+2. have a sword (can be found in Vinnytsia)
+3. be in Nikopol (southeast of Oster)
+4. have at least 25% of the entire population as your allies (this refers to the sum of the recruitable unallied population and your allies)
+5a. be in Nikopol on the 25th of January, 1648 at 06:00
+5b. skip to the end, assuming you've fulfilled conditions 1-4, using the command "end"
+
+You lose the game if:
+1. you don't fulfill one of the winning conditions 1-4 outlined above on the 25th of January, 1648 at 06:00
+2. you starve during the game (your hunger level is ten)
+3. you quit the game using "quit"
+
+You begin your campaign in Oster, on the 1st of November, 1647, at 06:00. You can move around by using the command "go <direction>". If you are too hungry, you won't be able to move.
+You can change your reputation by using the command "speech" to give a speech.
+You can talk to the townspeople by using "talk" and perhaps convince them to become allies. You might also lose your existing allies. You may talk to people a maximum of five times per area.
+Eating is done with the command "eat", resetting your hunger in the process. You can take a rest using "rest".
+
+Dealing with items is simple. Use "get <item>" to pick up an item, "examine <item>" to examine it, "use <item>" to use it, and "drop <item>" to drop it at your location.
+
+You can check your own status by using "self". Seeing your inventory is done with "inventory".
+
+
+
+Хмельниччина - Руководство игрока
+
+Чтобы победить игру, у Вас должен быть:
+1. карта Запорожской Сечи (можно найти в Киеве)
+2. меч (можно найти в Виннице)
+3. больше чем 25 процентов населения вашими союзниками
+и Вас должен:
+4. иметь больше чем 25 процентов населения 
+5а. быть в Никополе 25 января 1648 года в шесть часа утром
+5б. пропустить в конец, предлагая, что у Вас условия победы заполнены, с помощью команды "end"
+
+Вы проиграете, если:
+1. у Вас какое-то условие победы не заполнено до 25 января 1648 года
+2. Вы умрёте с голоду (уровень голода десять)
+3. Вы уйдёте из игры с помощью команды "quit"
+
+Ваш поход начинается из Остера, 1 ноября 1647 года в шесть часа утром. Вы можете двигаться с помощью команды "go <направление>", если Вы не слишком голодны.
+Вы можете изменять свою репутацию с "speech".
+Вы можете общаться с людьми с "talk", чтобы получить союзников, но тоже можно, что Вы потеряете своих союзников. На каждом районе можно общаться только пять раз.
+Есть с "eat". Отдыхать с "rest".
+
+Чтобы подобрать вещь, "get <вещь>", осмотреть на неё, "examine <вещь>", использовать её, "use <вещъ>" и чтобы положить её на Вашем месте, "drop <вещь>".
+
+Вы можете проверять своё положение с "self" и свой инвентарь с "inventory".
