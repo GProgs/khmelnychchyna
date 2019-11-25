@@ -4,7 +4,7 @@ In order to win the game, you need to
 1. have a map of the Zaporozhian Sich with you (can be found in the City of Kyiv)
 2. have a sword (can be found in Vinnytsia)
 3. be in Nikopol (southeast of Oster)
-4. have at least 25% of the entire population as your allies (this refers to the sum of the recruitable unallied population and your allies)
+4. have at least 25% of the entire population (= 24540) as your allies (this refers to the sum of the recruitable unallied population and your allies)
 5a. be in Nikopol on the 25th of January, 1648 at 06:00
 5b. skip to the end, assuming you've fulfilled conditions 1-4, using the command "end"
 
@@ -29,9 +29,9 @@ You can check your own status by using "self". Seeing your inventory is done wit
 Чтобы победить игру, у Вас должен быть:
 1. карта Запорожской Сечи (можно найти в Киеве)
 2. меч (можно найти в Виннице)
-3. больше чем 25 процентов населения вашими союзниками
+3. больше чем 25 процентов населения вашими союзниками (=24 540 союзников)
+4. быть в Никополе
 и Вас должен:
-4. иметь больше чем 25 процентов населения 
 5а. быть в Никополе 25 января 1648 года в шесть часа утром
 5б. пропустить в конец, предлагая, что у Вас условия победы заполнены, с помощью команды "end"
 
