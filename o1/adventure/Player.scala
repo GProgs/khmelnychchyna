@@ -73,7 +73,7 @@ class Player(startingArea: Area) {
   /** Gives a list of new commands and what the player has to do in order to win. */
   def help: String = {
     "New commands:\n- speech (You give a speech. Can change your reputation.)" + 
-    "\n- talk (You can recruit or lose allies by talking.)\n- self\n- eat (Remember to eat!)\n- rest\- use\n- end (Can skip time.)" +
+    "\n- talk (You can recruit or lose allies by talking.)\n- self\n- eat (Remember to eat!)\n- rest\n- use\n- end (Can skip time.)" +
     "\n\n In order to win, you must have the map, the sword, be in the place specified by the map, and have enough allies (25% of the population)."
   }
 
