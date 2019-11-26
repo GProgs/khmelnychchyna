@@ -22,6 +22,10 @@ Dealing with items is simple. Use "get <item>" to pick up an item, "examine <ite
 
 You can check your own status by using "self". Seeing your inventory is done with "inventory".
 
+Authors: Julia Prokki and Gentrit Zenuni
+Based off of the base game "Adventure" and built with the help of too much Wikipedia
+26th of November, 2019
+
 
 
 Хмельниччина - Руководство игрока
@@ -48,3 +52,7 @@ You can check your own status by using "self". Seeing your inventory is done wit
 Чтобы подобрать вещь, "get <вещь>", осмотреть на неё, "examine <вещь>", использовать её, "use <вещъ>" и чтобы положить её на Вашем месте, "drop <вещь>".
 
 Вы можете проверять своё положение с "self" и свой инвентарь с "inventory".
+
+Авторы: Гентрит Зенуни и Юлия Прокки
+Сделана из основной игры «Adventure» и сооружена с помощью слишком много Википедии
+26 ноября 2019 года
