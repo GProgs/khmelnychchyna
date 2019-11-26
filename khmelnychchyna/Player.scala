@@ -1,4 +1,4 @@
-package o1.adventure
+package khmelnychchyna
 
 import scala.collection.mutable.Map
 import scala.util.Random

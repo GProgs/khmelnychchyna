@@ -1,4 +1,4 @@
-package o1.adventure
+package khmelnychchyna
 
 
 /** The class `Action` represents actions that a player may take in a text adventure game.

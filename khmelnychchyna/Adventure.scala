@@ -1,4 +1,4 @@
-package o1.adventure
+package khmelnychchyna
 
 import java.text.SimpleDateFormat
 import java.util.{Calendar, GregorianCalendar}

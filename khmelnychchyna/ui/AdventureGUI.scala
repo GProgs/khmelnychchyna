@@ -1,9 +1,9 @@
-package o1.adventure.ui
+package khmelnychchyna.ui
 
 import scala.swing._
 import scala.swing.event._
 import javax.swing.UIManager
-import o1.adventure.Adventure
+import khmelnychchyna.Adventure
 
 
 ////////////////// NOTE TO STUDENTS //////////////////////////
