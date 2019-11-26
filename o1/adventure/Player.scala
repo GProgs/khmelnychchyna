@@ -73,18 +73,18 @@ class Player(startingArea: Area) {
   /** Gives a list of new commands and what the player has to do in order to win. */
   def help: String = {
     "New commands:\n- speech (You give a speech. Can change your reputation.)" + 
-    "\n- talk (You can recruit or lose allies by talking)\n- self\n- eat (Remember to eat!)\n- rest\n- end (Can skip time.)" +
-    "\n\n In order to win, you must have the map, the sword, be in the place specified by the map, and have enough allies (25% of the population).."
+    "\n- talk (You can recruit or lose allies by talking.)\n- self\n- eat (Remember to eat!)\n- rest\n- use\n- end (Can skip time.)" +
+    "\n\n In order to win, you must have the map, the sword, be in the place specified by the map, and have enough allies (25% of the population)."
   }
 
   /** Causes the player to hold a speech. This may or may not change the player's reputation. */
   def holdSpeech(): String = {
     val dRep: Double = rand.nextGaussian()
-    _rep = _rep + dRep // changes the reputation
+    _rep = max(-1.0, _rep + dRep) // changes the reputation
     incHunger()
-    if (dRep < -1.0) {
+    if (dRep < -0.7) {
       "Your speech instilled a deep fear and hatred in the population, proving a strong setback for your campaign."
-    } else if (dRep < -0.5) {
+    } else if (dRep < 0.0) {
       "Your speech was a bit too negative to the people. While a minor setback, you've learned to be a bit more gentle next time."
     } else if (dRep < 0.5) {
       "The people listened to your speech and largely agree with you, although some were more than apathetic. You keep going forward."
@@ -101,25 +101,28 @@ class Player(startingArea: Area) {
   def talk(): String = {
     incHunger()
     if (location.talk()) { // if you've given four talks or less in this area => the max is five talks
-      if (rand.nextInt(2) == 1) { // 1 means you lose allies
+      if (rand.nextInt(3) == 1) { // 1 means you lose allies
         val oldAllies: Int = _allies
-        val d: Int = (coeff() * _allies).round.toInt // amount of allies you lose
+        val d: Int = (coeffLose() * _allies).round.toInt // amount of allies you lose
         val newAllies: Int = _allies - d // the new amount of allies
         _allies = max(0, newAllies) // remove this amount of allies from the player
         location.updatePopulation(d) // add the same amount of allies to the recruitable population
         s"You lost ${oldAllies - newAllies} allies."
       } else {
-        val d: Int = (coeff() * location.recruitablePopulation).round.toInt
+        val d: Int = (coeffGain() * location.recruitablePopulation).round.toInt
         val newAllies: Int = -location.updatePopulation(-d) // takes into account the case where the population is drained;
         // the minus is to show that you GOT new allies
-        _allies = newAllies
+        _allies += newAllies
         s"You got $newAllies new allies."
       }
     } else { "You can't give a talk here anymore. Instead, you take a rest here." }
   }
   
-  /** Returns a random reputation-based constrained coefficient, outlined in the method talk(). This one is on the interval [0, 1]*/
-  private def coeff(): Double = max(0.0, min(_rep * rand.nextGaussian(), 1.0))
+  /** Returns a random reputation-based constrained coefficient, outlined in the method talk(). This one is on the interval [0, 0.5]*/
+  private def coeffLose(): Double = max(0.0, min(_rep * rand.nextGaussian(), 0.5))
+  
+  /** Returns a random reputation-based constrained coefficient, outlined in the method talk(). This one is on the interval [0.3, 0.9]*/
+  private def coeffGain(): Double = max(0.3, min(_rep * rand.nextGaussian(), 0.9))
   
   /** Returns the player's reputation. The bigger the reputation, the better a reputation the player has. */
   def reputation: Double = _rep
